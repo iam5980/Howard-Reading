@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Howard Reading Mock Exam — Answer Key</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 13pt;
+    line-height: 1.6;
+    color: #000;
+    background: #fff;
+    padding: 20px 30px;
+    max-width: 820px;
+    margin: 0 auto;
+    border: 3px solid #c00;
+  }
+  @media print {
+    body { padding: 10px 20px; border: none; }
+    .no-print { display: none; }
+    .page-break { page-break-before: always; }
+    body::before {
+      content: "TEACHER COPY — ANSWER KEY";
+      display: block;
+      text-align: center;
+      color: #c00;
+      font-weight: bold;
+      font-size: 10pt;
+      border-bottom: 1px solid #c00;
+      padding-bottom: 4px;
+      margin-bottom: 6px;
+    }
+  }
+  .teacher-banner {
+    background: #c00;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+    font-size: 12pt;
+    padding: 6px;
+    margin-bottom: 14px;
+    letter-spacing: 1px;
+  }
+  .no-print {
+    text-align: center;
+    margin-bottom: 16px;
+  }
+  .no-print button {
+    background: #1e3a5f;
+    color: white;
+    border: none;
+    padding: 10px 28px;
+    font-size: 14pt;
+    border-radius: 6px;
+    cursor: pointer;
+    margin: 4px;
+  }
+  .no-print button:hover { background: #2a5080; }
+
+  /* Header */
+  .exam-header {
+    text-align: center;
+    margin-bottom: 14px;
+    border-bottom: 3px double #c00;
+    padding-bottom: 8px;
+  }
+  .exam-header h1 {
+    font-size: 19pt;
+    font-weight: bold;
+    color: #c00;
+  }
+  .exam-header h2 {
+    font-size: 14pt;
+    font-weight: normal;
+    margin-top: 4px;
+  }
+  .answer-label {
+    color: #c00;
+    font-weight: bold;
+    font-size: 20pt;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  /* Section headers */
+  .section-title {
+    background: #1e3a5f;
+    color: white;
+    font-size: 13pt;
+    font-weight: bold;
+    padding: 5px 12px;
+    margin: 18px 0 8px 0;
+    border-radius: 3px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .section-title .pts { float: right; font-weight: normal; font-size: 11pt; }
+  .scoring-note {
+    font-size: 10.5pt;
+    font-style: italic;
+    color: #555;
+    margin-bottom: 8px;
+  }
+
+  /* Answer elements */
+  .ans {
+    color: #c00;
+    font-weight: bold;
+    font-size: 12.5pt;
+  }
+  .ans-box {
+    background: #fff5f5;
+    border: 1px solid #c00;
+    border-radius: 3px;
+    padding: 2px 8px;
+    display: inline-block;
+    color: #c00;
+    font-weight: bold;
+  }
+  .question {
+    margin-bottom: 12px;
+    padding-left: 4px;
+  }
+  .question p { margin-bottom: 4px; }
+  .blank-ans {
+    display: inline-block;
+    color: #c00;
+    font-weight: bold;
+    text-decoration: underline;
+    padding: 0 4px;
+  }
+
+  /* TF table */
+  .tf-table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 6px;
+    font-size: 12pt;
+  }
+  .tf-table th {
+    background: #dce4ef;
+    border: 1px solid #000;
+    padding: 5px 14px;
+    text-align: center;
+    font-weight: bold;
+  }
+  .tf-table td {
+    border: 1px solid #000;
+    padding: 7px 10px;
+  }
+  .tf-table td.center { text-align: center; width: 80px; }
+  .check { color: #c00; font-weight: bold; font-size: 14pt; }
+
+  /* Word bank */
+  .word-bank {
+    border: 2px solid #000;
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 12px;
+    font-size: 12pt;
+  }
+  .word-bank td {
+    border: 1px solid #555;
+    padding: 5px 10px;
+    text-align: center;
+  }
+
+  /* Fact/Opinion */
+  .fo-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+    padding-bottom: 4px;
+    border-bottom: 1px dotted #ccc;
+  }
+  .fo-row .stmt { flex: 1; padding-right: 16px; font-size: 12pt; }
+
+  /* MC choices */
+  .mc-choices { margin-left: 18px; margin-top: 4px; }
+  .mc-choices p { margin-bottom: 2px; }
+  .choice-letter { font-weight: bold; margin-right: 6px; }
+  .correct-choice { color: #c00; font-weight: bold; }
+
+  /* Oral rubric */
+  .oral-rubric-card {
+    border: 2px solid #1e3a5f;
+    border-radius: 5px;
+    margin-bottom: 14px;
+    overflow: hidden;
+  }
+  .oral-rubric-header {
+    background: #1e3a5f;
+    color: white;
+    padding: 6px 12px;
+    font-weight: bold;
+    font-size: 12pt;
+  }
+  .oral-rubric-header .exam-must {
+    background: #c00;
+    color: white;
+    font-size: 9pt;
+    padding: 2px 7px;
+    border-radius: 10px;
+    margin-right: 8px;
+    vertical-align: middle;
+  }
+  .oral-rubric-body {
+    padding: 10px 14px;
+    font-size: 11.5pt;
+    line-height: 1.7;
+  }
+  .oral-rubric-body .model-ans {
+    background: #e8f5e9;
+    border-left: 4px solid #2e7d32;
+    padding: 6px 10px;
+    margin: 6px 0;
+    color: #1b5e20;
+    font-style: italic;
+  }
+  .key-words { color: #1e3a5f; font-weight: bold; }
+  .rubric-line {
+    font-size: 10.5pt;
+    color: #555;
+    margin-top: 4px;
+    border-top: 1px dotted #ccc;
+    padding-top: 4px;
+  }
+
+  /* Score table */
+  .score-table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 16px;
+    font-size: 11pt;
+  }
+  .score-table th, .score-table td {
+    border: 1px solid #000;
+    padding: 6px 8px;
+    text-align: center;
+  }
+  .score-table th { background: #dce4ef; font-weight: bold; }
+
+  .page-num {
+    text-align: right;
+    font-size: 10pt;
+    color: #999;
+    margin-top: 8px;
+  }
+</style>
+</head>
+<body>
+
+<div class="teacher-banner">⭐ TEACHER COPY — ANSWER KEY — DO NOT DISTRIBUTE ⭐</div>
+
+<div class="no-print">
+  <button onclick="window.print()">🖨️ Print Answer Key</button>
+  <button onclick="location.href='mock_exam.html'">📄 View Exam</button>
+</div>
+
+<div class="exam-header">
+  <h1>English Reading — Practice Exam</h1>
+  <h2><em>Egypt</em> (Ann Heinrichs) &amp; <em>Old Yeller</em> (Fred Gipson) · Reading Street 6.1</h2>
+</div>
+<div class="answer-label">★ ANSWER KEY ★</div>
+
+<!-- ===== SECTION A ===== -->
+<div class="section-title">Section A — Genre &amp; Story Type <span class="pts">4 pts (2 each)</span></div>
+<div class="scoring-note">Accept letter only or full sentence re-stating the correct choice.</div>
+
+<div class="question">
+  <p><strong>1. <span class="ans">c)</span></strong> What kind of story is "Egypt"?</p>
+  <div class="mc-choices">
+    <p>a) A historical fiction based on real Egyptian characters.</p>
+    <p>b) A biography of a famous Egyptian pharaoh.</p>
+    <p class="correct-choice">c) ✓ An expository text that explains the nature of something.</p>
+  </div>
+</div>
+<div class="question">
+  <p><strong>2. <span class="ans">b)</span></strong> What kind of story is "Old Yeller"?</p>
+  <div class="mc-choices">
+    <p>a) An autobiography of the author's life.</p>
+    <p class="correct-choice">b) ✓ A historical fiction that takes place in the past.</p>
+    <p>c) An animal fantasy about a talkative dog.</p>
+  </div>
+</div>
+
+<!-- ===== SECTION B ===== -->
+<div class="section-title">Section B — Circle True or False <span class="pts">8 pts (2 each)</span></div>
+<div class="scoring-note">Mark ✓ in the correct column below.</div>
+
+<table class="tf-table">
+  <thead>
+    <tr>
+      <th style="text-align:left; width:70%;">Statement</th>
+      <th>TRUE</th>
+      <th>FALSE</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1. In ancient Egypt, wives could sue for divorce.</td>
+      <td class="center"><span class="check">✓</span></td>
+      <td class="center"></td>
+    </tr>
+    <tr>
+      <td>2. The story <em>Old Yeller</em> is set in 1867 on the frontier of Texas, USA.</td>
+      <td class="center"></td>
+      <td class="center"><span class="check">✓</span> <span style="font-size:9pt;color:#555;">(1867 ✗ — the original story setting is 1869)</span></td>
+    </tr>
+    <tr>
+      <td>3. Ancient Egyptians invented the first cosmetics.</td>
+      <td class="center"><span class="check">✓</span></td>
+      <td class="center"></td>
+    </tr>
+    <tr>
+      <td>4. Women in ancient Egypt had no rights and could not own property.</td>
+      <td class="center"></td>
+      <td class="center"><span class="check">✓</span> <span style="font-size:9pt;color:#555;">(Women DID have rights)</span></td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- ===== SECTION C ===== -->
+<div class="section-title">Section C — Multiple Choice <span class="pts">10 pts (2 each)</span></div>
+<div class="scoring-note">Accept letter only.</div>
+
+<div class="question">
+  <p><strong>3. <span class="ans">c)</span></strong> What was ancient Egypt called? → <span class="ans-box">The granary to the world</span></p>
+</div>
+<div class="question">
+  <p><strong>4. <span class="ans">b)</span></strong> What did Egyptians believe about pharaohs? → <span class="ans-box">With proper burial, they could be immortal</span></p>
+</div>
+<div class="question">
+  <p><strong>5. <span class="ans">b)</span></strong> Who is telling the story in Old Yeller? → <span class="ans-box">Travis</span></p>
+</div>
+<div class="question">
+  <p><strong>6. <span class="ans">b)</span></strong> What did Arliss start doing after Old Yeller arrived? → <span class="ans-box">Catching bigger game</span></p>
+</div>
+<div class="question">
+  <p><strong>7. <span class="ans">b)</span></strong> Which part of the catfish hurt Arliss? → <span class="ans-box">The fins</span></p>
+</div>
+
+<div class="page-num">— 1 —</div>
+<div class="page-break"></div>
+
+<!-- ===== SECTION D ===== -->
+<div class="section-title">Section D — Vocabulary: Egypt <span class="pts">10 pts (2 each)</span></div>
+<div class="scoring-note">Accept correct word in any logical blank order within each sentence. Spelling must be close.</div>
+
+<table class="word-bank">
+  <tr>
+    <td>artisan</td><td>ancient</td><td>ornaments</td><td>pharaohs</td><td>luxury</td>
+  </tr>
+  <tr>
+    <td>divorce</td><td>inherit</td><td>drenching</td><td>exotic</td><td>reign</td>
+  </tr>
+</table>
+
+<div class="question">
+  <p><strong>A)</strong> The <span class="blank-ans">reign</span> of King Scott lasted over 50 years until he died of old age and his son <span class="blank-ans">inherit</span>ed the title of King of that land.</p>
+</div>
+<div class="question">
+  <p><strong>B)</strong> It is believed that slaves were used to build the pyramids in <span class="blank-ans">ancient</span> Egypt.</p>
+</div>
+<div class="question">
+  <p><strong>C)</strong> He lives with his dad on weekends and his mom during the week since his parents got a <span class="blank-ans">divorce</span>.</p>
+</div>
+<div class="question">
+  <p><strong>D)</strong> She is a skilled <span class="blank-ans">artisan</span> and sells the things she makes at the local market.</p>
+</div>
+<div class="question">
+  <p><strong>E)</strong> He only stays in <span class="blank-ans">luxury</span> hotels, but to do so he has to spend a lot of money anytime he travels.</p>
+</div>
+
+<!-- ===== SECTION E ===== -->
+<div class="section-title">Section E — Vocabulary: Old Yeller <span class="pts">10 pts (2 each)</span></div>
+<div class="scoring-note">Each sentence = 2 pts; sentences with 2 blanks give 1 pt each blank.</div>
+
+<table class="word-bank">
+  <tr>
+    <td>sulked</td><td>tortilla</td><td>shallow</td><td>possums</td><td>frontier</td>
+  </tr>
+  <tr>
+    <td>speckled</td><td>drowned</td><td>romping</td><td>prickly</td><td>spasm</td>
+  </tr>
+</table>
+
+<div class="question">
+  <p><strong>A)</strong> He was upset and <span class="blank-ans">sulked</span> when his parents told Wade that he could not swim in the deep end with his friends and had to stay in the <span class="blank-ans">shallow</span> part of the pool.</p>
+</div>
+<div class="question">
+  <p><strong>B)</strong> I put some chicken, cheese and onions on a hot <span class="blank-ans">tortilla</span> and rolled it up before eating it.</p>
+</div>
+<div class="question">
+  <p><strong>C)</strong> If you ask people to name a <span class="blank-ans">prickly</span> plant, the first one they will usually say is a cactus.</p>
+</div>
+<div class="question">
+  <p><strong>D)</strong> He told the doctors he had been having back <span class="blank-ans">spasm</span>s and felt a lot of pain.</p>
+</div>
+<div class="question">
+  <p><strong>E)</strong> In the context of the Old West, the <span class="blank-ans">frontier</span> referred to the line between settled areas and the wilderness.</p>
+</div>
+
+<!-- ===== SECTION F ===== -->
+<div class="section-title">Section F — Vocabulary in Context (Mixed) <span class="pts">10 pts (2 each blank group)</span></div>
+<div class="scoring-note">Score the paragraph as: 2 pts per correctly filled blank (8 blanks total = 16 possible; scale to 10 pts: divide score by 1.6).<br>Alternatively award 2 pts per sentence that is fully correct.</div>
+
+<table class="word-bank">
+  <tr>
+    <td>foreign</td><td>frantic</td><td>sweaty</td><td>immortal</td><td>eternity</td>
+  </tr>
+  <tr>
+    <td>ancient</td><td>divorced</td><td>shallow</td><td>luxury</td><td>sulked</td>
+  </tr>
+</table>
+
+<div class="question">
+  <p>Mia said something very odd to one of her <span class="blank-ans">foreign</span> teachers last week. He knows he is much older than the students but didn't expect to be called <span class="blank-ans">ancient</span>! He is now acting like a <span class="blank-ans">frantic</span>, crazy person, running around, worried that his wife might think the same thing and that he will get <span class="blank-ans">divorced</span>!</p>
+  <p style="margin-top:8px;">He pretended he wasn't upset by it but actually <span class="blank-ans">sulked</span> for most of the afternoon. To cheer himself up he booked his Chinese New Year vacation somewhere really nice. A <span class="blank-ans">luxury</span> five-star hotel. He needed to take a flight to get to it however as it was in Thailand. Carrying all those bags through the hot hotel, he was really <span class="blank-ans">sweaty</span>. When he finally got to the hotel, he didn't want to do anything but float around the <span class="blank-ans">shallow</span> end of the pool sipping on a cocktail.</p>
+</div>
+
+<div class="page-num">— 2 —</div>
+<div class="page-break"></div>
+
+<!-- ===== SECTION G ===== -->
+<div class="section-title">Section G — Fact or Opinion: Egypt <span class="pts">8 pts (2 each)</span></div>
+<div class="scoring-note">A FACT can be proven true or false. An OPINION is what someone believes or thinks.</div>
+
+<div class="fo-row">
+  <span class="stmt">1. There are many well-preserved homes remaining from ancient Egypt.</span>
+  <span class="ans-box">FACT</span>
+</div>
+<div class="fo-row">
+  <span class="stmt">2. Poor people and wealthy people stayed in the same kind of houses.</span>
+  <span class="ans-box">FACT</span>
+</div>
+<div class="fo-row">
+  <span class="stmt">3. The Great Pyramid of Khufu is the most impressive building ever constructed.</span>
+  <span class="ans-box">OPINION</span>
+</div>
+<div class="fo-row">
+  <span class="stmt">4. Ancient Egyptians loved to have fun with their families.</span>
+  <span class="ans-box">OPINION</span>
+</div>
+
+<!-- ===== SECTION H ===== -->
+<div class="section-title">Section H — Circle the Correct Word <span class="pts">8 pts (2 each)</span></div>
+<div class="scoring-note">Accept circled word or written answer.</div>
+
+<div class="question">
+  <p><strong>A.</strong> Which was NOT a common food in ancient Egypt? → <span class="ans-box">apples</span></p>
+</div>
+<div class="question">
+  <p><strong>B.</strong> What was the most basic food, important for all? → <span class="ans-box">bread</span></p>
+</div>
+<div class="question">
+  <p><strong>C.</strong> When did the new year in ancient Egypt begin? → <span class="ans-box">June</span></p>
+</div>
+<div class="question">
+  <p><strong>D.</strong> Which animal scoured the lands for human remains? → <span class="ans-box">jackals</span></p>
+</div>
+
+<!-- ===== SECTION I ===== -->
+<div class="section-title">Section I — Reading for Details <span class="pts">12 pts (2 each)</span></div>
+<div class="scoring-note">Accept any reasonable paraphrase with correct key information.</div>
+
+<div class="question">
+  <p><strong>1.</strong> The Great Pyramid was built by Khufu around → <span class="ans-box">2540 B.C. (accept: around 2500 B.C.)</span></p>
+</div>
+<div class="question">
+  <p><strong>2.</strong> Khufu's pyramid was made of <span class="blank-ans">limestone</span> blocks and <span class="blank-ans">granite</span> slabs.</p>
+</div>
+<div class="question">
+  <p><strong>3.</strong> <span class="blank-ans">100,000</span> men worked on the pyramids. It took more than <span class="blank-ans">20</span> years to finish.</p>
+</div>
+<div class="question">
+  <p><strong>4.</strong> Travis, his younger brother, and their mother lived on a <span class="blank-ans">homestead</span> in <span class="blank-ans">Texas</span>.</p>
+</div>
+<div class="question">
+  <p><strong>5.</strong> Old Yeller was a <span class="blank-ans">stray</span> dog (accept: yellow / wandering / homeless).</p>
+</div>
+<div class="question">
+  <p><strong>6.</strong> Which animal injured Arliss? <span class="blank-ans">catfish (the fins)</span> &nbsp;&nbsp; What did Mama make? <span class="blank-ans">poultice</span></p>
+</div>
+
+<!-- ===== SECTION J ===== -->
+<div class="section-title">Section J — Circle the Incorrect Word &amp; Rewrite <span class="pts">8 pts (4 each)</span></div>
+<div class="scoring-note">2 pts for correctly identifying the wrong word; 2 pts for correct rewritten sentence.</div>
+
+<div class="question">
+  <p><strong>Egypt 1.</strong> Original: <em>The legend says they were together for an <u>ornament</u>.</em></p>
+  <p>Wrong word: <span class="ans-box">ornament</span> → Correct word: <span class="ans-box">eternity / forever</span></p>
+  <p class="ans" style="margin-top:4px;">Corrected: The legend says they were together for eternity.</p>
+</div>
+<div class="question">
+  <p><strong>Egypt 2.</strong> Original: <em>I worked as a <u>hebrew</u> before I moved to Taiwan.</em></p>
+  <p>Wrong word: <span class="ans-box">hebrew</span> → Correct word: <span class="ans-box">scribe</span></p>
+  <p class="ans" style="margin-top:4px;">Corrected: I worked as a scribe before I moved to Taiwan.</p>
+</div>
+<div class="question">
+  <p><strong>Old Yeller 3.</strong> Original: <em>Prickly little baby <u>don't</u> say a word.</em></p>
+  <p>Wrong word: <span class="ans-box">don't</span> → Correct word: <span class="ans-box">doesn't</span></p>
+  <p class="ans" style="margin-top:4px;">Corrected: Prickly little baby doesn't say a word.</p>
+</div>
+<div class="question">
+  <p><strong>Old Yeller 4.</strong> Original: <em>There's no diving allowed in the <u>sweaty</u> end.</em></p>
+  <p>Wrong word: <span class="ans-box">sweaty</span> → Correct word: <span class="ans-box">shallow / deep</span></p>
+  <p class="ans" style="margin-top:4px;">Corrected: There's no diving allowed in the shallow end.</p>
+</div>
+
+<div class="page-num">— 3 —</div>
+<div class="page-break"></div>
+
+<!-- ===== SECTION K ===== -->
+<div class="section-title">Section K — Write the Correct Sentence <span class="pts">10 pts (2 each)</span></div>
+<div class="scoring-note">Answer must match the answer box sentence closely. Minor wording differences acceptable.</div>
+
+<div class="question">
+  <p><strong>Egypt 1.</strong> What was put in a sarcophagus?</p>
+  <p class="ans">B. Mummies of some pharaohs were placed in a stone coffin.</p>
+</div>
+<div class="question">
+  <p><strong>Egypt 2.</strong> What was in ancient Egypt but is not there now?</p>
+  <p class="ans">A. Animals such as hippos in the Nile or lions in the desert.</p>
+</div>
+<div class="question">
+  <p><strong>Old Yeller 3.</strong> What happened as the bear lunged toward Arliss?</p>
+  <p class="ans">B. A flash of yellow came streaking out of the bush.</p>
+</div>
+<div class="question">
+  <p><strong>Old Yeller 4.</strong> What was it that spooked Travis (the narrator)?</p>
+  <p class="ans">C. A rowdy romp with Old Yeller. <em>(accept: Hearing Mama call / A for full credit if justified)</em></p>
+</div>
+
+<!-- ===== SECTION L ===== -->
+<div class="section-title">Section L — Comprehension (Short Answer) <span class="pts">12 pts (3 each)</span></div>
+<div class="scoring-note">3 pts per question: 2 pts = correct main idea in complete sentence; 1 pt = specific detail / example. Accept reasonable paraphrase.</div>
+
+<div class="question">
+  <p><strong>1.</strong> How were women treated in ancient Egypt? Give at least two examples.</p>
+  <p class="ans">Model answer: Women in ancient Egypt were treated quite well compared to other civilisations. They could own property, inherit land, and even sue for divorce. Women who were pharaohs, like Cleopatra, held great power. However, most women were expected to run the home.</p>
+</div>
+<div class="question">
+  <p><strong>2.</strong> Which level of Egyptian society had the hardest life? Why?</p>
+  <p class="ans">Model answer: Farmers and servants at the bottom of society had the hardest life. They had to work in the fields every day, harvesting crops and doing heavy labour, without much food or rest. Slaves had no freedom at all and had to obey their masters.</p>
+</div>
+<div class="question">
+  <p><strong>3.</strong> How did Arliss get hurt? Explain in detail.</p>
+  <p class="ans">Model answer: Arliss was hurt by the fins of a large catfish that Old Yeller caught. When Arliss jumped on the catfish, the sharp spike on its fin cut into him, causing him to bleed. He was in a lot of pain from the fin stab (finned him).</p>
+</div>
+<div class="question">
+  <p><strong>4.</strong> What story did Arliss tell Mama? Do you think she believed him?</p>
+  <p class="ans">Model answer: Arliss told Mama that Old Yeller had caught the big catfish and that he had helped. He claimed he had done most of the catching. Most likely Mama did NOT believe him because Arliss was known to be a liar — she was used to his wild stories and usually punished him for them anyway.</p>
+</div>
+
+<!-- ===== ORAL RUBRIC ===== -->
+<div class="section-title" style="margin-top:24px;">Oral Test Rubric Cards</div>
+<div class="scoring-note">For each oral question: 2–3 pts. Exam Must-Know questions are marked with a red badge.</div>
+
+<div class="oral-rubric-card">
+  <div class="oral-rubric-header"><span class="exam-must">EXAM MUST-KNOW</span> Oral Q1 — Hieroglyphics</div>
+  <div class="oral-rubric-body">
+    <strong>Q:</strong> What were hieroglyphics? How were they used?
+    <div class="model-ans">"Hieroglyphics were a system of writing used by ancient Egyptians. They used symbols and pictures to write words and sounds. They wrote on papyrus, tomb walls, and artifacts."</div>
+    <span class="key-words">Key words: symbols / pictures / writing / ancient Egyptians / papyrus</span>
+    <div class="rubric-line">3 = complete + on-topic | 2 = partial (missing 1 key idea) | 1 = attempted</div>
+  </div>
+</div>
+
+<div class="oral-rubric-card">
+  <div class="oral-rubric-header"><span class="exam-must">EXAM MUST-KNOW</span> Oral Q2 — Osiris weighing the heart</div>
+  <div class="oral-rubric-body">
+    <strong>Q:</strong> Why would Osiris weigh someone's heart? What did this mean?
+    <div class="model-ans">"Osiris was the god of the dead. Egyptians believed that after you died, Osiris would weigh your heart against a feather. If your heart was light (you lived a good life), your soul could continue. If your heart was heavy (you did bad things), you would not go to the afterlife."</div>
+    <span class="key-words">Key words: Osiris / heart / feather / afterlife / good life / judgment</span>
+    <div class="rubric-line">3 = complete + on-topic | 2 = partial | 1 = attempted</div>
+  </div>
+</div>
+
+<div class="oral-rubric-card">
+  <div class="oral-rubric-header"><span class="exam-must">EXAM MUST-KNOW</span> Oral Q3 — When were mummies made?</div>
+  <div class="oral-rubric-body">
+    <strong>Q:</strong> When would people in ancient Egypt be made into mummies?
+    <div class="model-ans">"People were mummified after they died. The Egyptians believed that the body needed to be preserved so the soul could return to it in the afterlife. Pharaohs and wealthy people were most commonly mummified."</div>
+    <span class="key-words">Key words: after death / soul / preserved / afterlife / pharaohs</span>
+    <div class="rubric-line">3 = complete | 2 = partial | 1 = attempted</div>
+  </div>
+</div>
+
+<div class="oral-rubric-card">
+  <div class="oral-rubric-header"><span class="exam-must">EXAM MUST-KNOW</span> Oral Q4 — Where would bodies and souls go?</div>
+  <div class="oral-rubric-body">
+    <strong>Q:</strong> Where would the dead bodies and souls go after death?
+    <div class="model-ans">"The dead bodies of important people were placed in tombs or pyramids. Their souls were believed to travel to the afterlife — a world similar to Egypt. They needed food, furniture, and treasures buried with them for the journey."</div>
+    <span class="key-words">Key words: tombs / pyramids / afterlife / soul / journey / treasures</span>
+    <div class="rubric-line">3 = complete | 2 = partial | 1 = attempted</div>
+  </div>
+</div>
+
+<div class="oral-rubric-card">
+  <div class="oral-rubric-header"><span class="exam-must">EXAM MUST-KNOW</span> Oral Q5 — Who was Anubis?</div>
+  <div class="oral-rubric-body">
+    <strong>Q:</strong> Who was Anubis? What was his role?
+    <div class="model-ans">"Anubis was the ancient Egyptian god of the dead. He had a human body and the head of a jackal. His job was to guide the souls of the dead to the afterlife and to watch over the mummification process."</div>
+    <span class="key-words">Key words: god of dead / jackal head / guide souls / mummification</span>
+    <div class="rubric-line">3 = complete | 2 = partial | 1 = attempted</div>
+  </div>
+</div>
+
+<div class="oral-rubric-card">
+  <div class="oral-rubric-header">Oral Q6 — What did Arliss love doing?</div>
+  <div class="oral-rubric-body">
+    <strong>Q:</strong> What did Arliss love doing? Give some examples.
+    <div class="model-ans">"Arliss loved to capture every living thing that he could find. He caught frogs, lizards, snakes, possums, birds, and even a copperhead snake. He kept them in his pockets or carried them around."</div>
+    <span class="key-words">Key words: capture / living things / pockets / frogs / snakes / copperhead</span>
+    <div class="rubric-line">3 = complete + 2 examples | 2 = main idea only | 1 = attempted</div>
+  </div>
+</div>
+
+<div class="oral-rubric-card">
+  <div class="oral-rubric-header">Oral Q7 — What happened with the copperhead?</div>
+  <div class="oral-rubric-body">
+    <strong>Q:</strong> What happened with the copperhead snake?
+    <div class="model-ans">"Arliss had put a copperhead snake in his pocket. When Mama reached into his pocket, the snake almost bit her. After that, Mama made Travis teach Arliss which creatures were safe to catch. But Arliss still kept catching creatures anyway."</div>
+    <span class="key-words">Key words: copperhead / almost bit Mama / pocket / Travis / teach / still captured</span>
+    <div class="rubric-line">3 = complete sequence | 2 = partial | 1 = attempted</div>
+  </div>
+</div>
+
+<div class="oral-rubric-card">
+  <div class="oral-rubric-header">Oral Q8 — Why didn't Egyptians live past their thirties?</div>
+  <div class="oral-rubric-body">
+    <strong>Q:</strong> Why do you think most Egyptians didn't live past their thirties?
+    <div class="model-ans">"Most Egyptians didn't live past their thirties because life was very hard. They didn't have modern medicine, so even small injuries or illnesses could be deadly. Children especially died young. Hard physical labour, poor diet, and dangerous animals like crocodiles and hippos also shortened lives."</div>
+    <span class="key-words">Key words: no medicine / illness / children / hard labour / dangerous animals</span>
+    <div class="rubric-line">3 = two or more reasons + complete sentence | 2 = one reason | 1 = attempted</div>
+  </div>
+</div>
+
+<!-- ===== SCORE TABLE ===== -->
+<table class="score-table" style="margin-top:20px;">
+  <thead>
+    <tr>
+      <th>Section</th>
+      <th>A<br>Genre</th>
+      <th>B<br>T/F</th>
+      <th>C<br>MC</th>
+      <th>D<br>Vocab<br>Egypt</th>
+      <th>E<br>Vocab<br>OY</th>
+      <th>F<br>Vocab<br>Mix</th>
+      <th>G<br>Fact/<br>Opinion</th>
+      <th>H<br>Circle</th>
+      <th>I<br>Details</th>
+      <th>J<br>Find<br>Mistakes</th>
+      <th>K<br>Write<br>Sentence</th>
+      <th>L<br>Comp.</th>
+      <th>TOTAL</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Max Pts</strong></td>
+      <td>4</td><td>8</td><td>10</td><td>10</td><td>10</td><td>10</td><td>8</td><td>8</td><td>12</td><td>8</td><td>10</td><td>12</td><td><strong>100</strong></td>
+    </tr>
+    <tr>
+      <td><strong>Ans</strong></td>
+      <td><span style="color:#c00;font-weight:bold;">c,b</span></td>
+      <td><span style="color:#c00;font-weight:bold;">T,F,T,F</span></td>
+      <td><span style="color:#c00;font-weight:bold;">c,b,b,b,b</span></td>
+      <td><span style="color:#c00;">see D</span></td>
+      <td><span style="color:#c00;">see E</span></td>
+      <td><span style="color:#c00;">see F</span></td>
+      <td><span style="color:#c00;">F,F,O,O</span></td>
+      <td><span style="color:#c00;">apples,bread,June,jackals</span></td>
+      <td><span style="color:#c00;">see I</span></td>
+      <td><span style="color:#c00;">see J</span></td>
+      <td><span style="color:#c00;">B,A,B,C</span></td>
+      <td><span style="color:#c00;">see L</span></td>
+      <td><strong>100</strong></td>
+    </tr>
+  </tbody>
+</table>
+
+<div style="text-align:center; margin-top:20px; font-size:10pt; color:#888;">
+  ⭐ Howard's Reading 1151 Mock Exam — Teacher Copy ⭐
+</div>
+
+</body>
+</html>
