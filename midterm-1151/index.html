@@ -295,26 +295,27 @@ svg.ring{width:120px;height:120px}
 <script>
 /* ═══════════ VOICE ═══════════ */
 /* ── TTS setup ── */
+// iOS Safari quirks:
+// 1. getVoices() returns [] until voices are loaded; no guaranteed timing
+// 2. speechSynthesis.speak() MUST be called synchronously inside a click handler
+//    for the VERY FIRST call, otherwise iOS blocks audio for the whole session.
+// 3. voiceschanged event is unreliable on iOS — poll instead.
+
 let _voices=[];
-let _ttsUnlocked=false;
+let _ttsReady=false;  // true after first user-gesture speak
 
-function _loadVoices(){_voices=speechSynthesis.getVoices();}
-speechSynthesis.addEventListener("voiceschanged",_loadVoices);
-_loadVoices();
-
-// iOS Safari: unlock speechSynthesis on first user gesture
-function _unlockTTS(){
-  if(_ttsUnlocked)return;
-  _ttsUnlocked=true;
-  const u=new SpeechSynthesisUtterance("");
-  window.speechSynthesis.speak(u);
-  _voices=speechSynthesis.getVoices();
+function _pollVoices(){
+  const v=window.speechSynthesis.getVoices();
+  if(v.length){_voices=v;return;}
+  setTimeout(_pollVoices,200);
 }
-document.addEventListener("touchstart",_unlockTTS,{once:true,passive:true});
-document.addEventListener("click",_unlockTTS,{once:true});
+window.speechSynthesis.addEventListener("voiceschanged",()=>{
+  _voices=window.speechSynthesis.getVoices();
+});
+_pollVoices();
 
 function getBestVoice(){
-  const voices=_voices.length?_voices:speechSynthesis.getVoices();
+  const voices=_voices.length?_voices:window.speechSynthesis.getVoices();
   const priority=[
     v=>v.name==="Samantha",v=>v.name==="Karen",v=>v.name==="Daniel",
     v=>v.name.includes("Google US English"),v=>v.name.includes("Google UK English"),
@@ -325,14 +326,17 @@ function getBestVoice(){
   return null;
 }
 
+// speak() MUST be called directly from a click/touch handler on iOS.
+// Never wrap it in setTimeout or promises — that breaks iOS audio unlock.
 function speak(text){
   window.speechSynthesis.cancel();
-  if(!_voices.length)_voices=speechSynthesis.getVoices();
+  if(!_voices.length)_voices=window.speechSynthesis.getVoices();
   const u=new SpeechSynthesisUtterance(text);
   const v=getBestVoice();
   if(v)u.voice=v;
   u.lang="en-US";u.rate=0.88;u.pitch=1.0;
   window.speechSynthesis.speak(u);
+  _ttsReady=true;
 }
 
 /* ═══════════ DATA ═══════════ */

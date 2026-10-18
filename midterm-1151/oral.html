@@ -97,30 +97,22 @@ body{
 
 <script>
 /* ── TTS setup ── */
+// iOS Safari: speak() must be called synchronously inside a click handler.
+// Poll for voices since voiceschanged is unreliable on iOS.
 let _voices=[];
-let _ttsUnlocked=false;
 
-// Load voice list — fires immediately on Chrome/Android; delayed on iOS
-function _loadVoices(){_voices=speechSynthesis.getVoices();}
-speechSynthesis.addEventListener("voiceschanged",_loadVoices);
-_loadVoices();
-
-// iOS Safari requires speechSynthesis to be called SYNCHRONOUSLY inside a
-// user-gesture handler the very first time, or it stays silent forever.
-// We "unlock" it on the first tap anywhere on the page with a zero-length utterance.
-function _unlockTTS(){
-  if(_ttsUnlocked)return;
-  _ttsUnlocked=true;
-  const u=new SpeechSynthesisUtterance("");
-  window.speechSynthesis.speak(u);
-  // also grab voices now that we have a gesture
-  _voices=speechSynthesis.getVoices();
+function _pollVoices(){
+  const v=window.speechSynthesis.getVoices();
+  if(v.length){_voices=v;return;}
+  setTimeout(_pollVoices,200);
 }
-document.addEventListener("touchstart",_unlockTTS,{once:true,passive:true});
-document.addEventListener("click",_unlockTTS,{once:true});
+window.speechSynthesis.addEventListener("voiceschanged",()=>{
+  _voices=window.speechSynthesis.getVoices();
+});
+_pollVoices();
 
 function getBestVoice(){
-  const voices=_voices.length?_voices:speechSynthesis.getVoices();
+  const voices=_voices.length?_voices:window.speechSynthesis.getVoices();
   const priority=[
     v=>v.name==="Samantha",v=>v.name==="Karen",v=>v.name==="Daniel",
     v=>v.name.includes("Google US English"),v=>v.name.includes("Google UK English"),
@@ -131,10 +123,11 @@ function getBestVoice(){
   return null;
 }
 
+// IMPORTANT: call speak() directly from onclick — never in setTimeout/Promise.
+// iOS requires the first speechSynthesis.speak() to be synchronous in a click.
 function speak(text){
   window.speechSynthesis.cancel();
-  // refresh voice list if still empty
-  if(!_voices.length)_voices=speechSynthesis.getVoices();
+  if(!_voices.length)_voices=window.speechSynthesis.getVoices();
   const u=new SpeechSynthesisUtterance(text);
   const v=getBestVoice();
   if(v)u.voice=v;
