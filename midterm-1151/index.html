@@ -321,7 +321,7 @@ function startDrill(type){
   drillIdx = 0;
   drillResults = [];
   document.getElementById('home').style.display='none';
-  document.getElementById('panel').style.display='';
+  document.getElementById('panel').style.display='block';
 
   const TITLES = {
     vocab:'📖 Vocabulary', fill:'✏️ Fill in Blank', tf:'✅ True / False',
@@ -336,7 +336,7 @@ function startDrill(type){
     renderOral();
     return;
   }
-  document.getElementById('finishBtn').style.display='';
+  document.getElementById('finishBtn').style.display='inline-block';
 
   let pool;
   if(type==='mock') pool = shuffle(BANK).slice(0,30);
@@ -403,7 +403,7 @@ function checkAnswer(q){
   const isRight = given.toLowerCase() === correct.toLowerCase();
   document.querySelectorAll('.choice').forEach(b=>b.disabled=true);
   document.getElementById('checkBtn').style.display='none';
-  document.getElementById('nextBtn').style.display='';
+  document.getElementById('nextBtn').style.display='inline-block';
   drillResults.push({q:q.q, given, correct, ok:isRight});
   const fb = document.getElementById('feedback');
   if(isRight){
