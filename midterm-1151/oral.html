@@ -97,8 +97,9 @@ body{
 
 <script>
 let _voices=[];
-speechSynthesis.addEventListener("voiceschanged",()=>{_voices=speechSynthesis.getVoices();});
-if(_voices.length===0)_voices=speechSynthesis.getVoices();
+function _loadVoices(){_voices=speechSynthesis.getVoices();}
+speechSynthesis.addEventListener("voiceschanged",_loadVoices);
+_loadVoices();
 function getBestVoice(){
   const voices=_voices.length?_voices:speechSynthesis.getVoices();
   const priority=[
@@ -112,9 +113,20 @@ function getBestVoice(){
 }
 function speak(text){
   window.speechSynthesis.cancel();
-  const u=new SpeechSynthesisUtterance(text);
-  u.voice=getBestVoice();u.lang="en-US";u.rate=0.88;u.pitch=1.0;
-  window.speechSynthesis.speak(u);
+  // iOS Safari: voices may not be ready yet — retry once after short delay
+  function _doSpeak(){
+    const u=new SpeechSynthesisUtterance(text);
+    const v=getBestVoice();
+    if(v)u.voice=v;
+    u.lang="en-US";u.rate=0.88;u.pitch=1.0;
+    window.speechSynthesis.speak(u);
+  }
+  if(_voices.length>0){_doSpeak();}
+  else{
+    _voices=speechSynthesis.getVoices();
+    if(_voices.length>0){_doSpeak();}
+    else{setTimeout(()=>{_voices=speechSynthesis.getVoices();_doSpeak();},300);}
+  }
 }
 
 const ORAL=[
