@@ -248,6 +248,13 @@ svg.ring{width:120px;height:120px}
 
   <div style="max-width:700px;margin:0 auto;padding-bottom:40px">
 
+    <!-- iOS TTS unlock bar -->
+    <div id="unlock-bar" style="display:none;background:#1a1000;border:2px solid #fbbf24;border-radius:12px;padding:16px;margin-bottom:20px;text-align:center">
+      <div id="unlock-msg" style="color:#fbbf24;font-weight:800;font-size:1rem;margin-bottom:10px">🔇 Tap to enable voice reading</div>
+      <button id="unlock-btn" onclick="iosUnlock()" style="background:#fbbf24;color:#1a1000;border:none;border-radius:22px;padding:12px 32px;font-size:1rem;font-weight:800;font-family:inherit;cursor:pointer;min-height:48px">🔊 Enable Voice</button>
+      <div style="color:#9fa8da;font-size:.8rem;margin-top:8px">iOS Safari requires one tap before 🔊 buttons work</div>
+    </div>
+
     <!-- Zone 1: Practice by Question Type -->
     <div class="zone">
       <div class="zone-label">Practice by Question Type</div>
@@ -326,8 +333,6 @@ function getBestVoice(){
   return null;
 }
 
-// speak() MUST be called directly from a click/touch handler on iOS.
-// Never wrap it in setTimeout or promises — that breaks iOS audio unlock.
 function speak(text){
   window.speechSynthesis.cancel();
   if(!_voices.length)_voices=window.speechSynthesis.getVoices();
@@ -338,6 +343,29 @@ function speak(text){
   window.speechSynthesis.speak(u);
   _ttsReady=true;
 }
+
+// iOS unlock — must be called directly from button onclick
+function iosUnlock(){
+  window.speechSynthesis.cancel();
+  _voices=window.speechSynthesis.getVoices();
+  const u=new SpeechSynthesisUtterance("Voice enabled");
+  const v=getBestVoice();if(v)u.voice=v;
+  u.lang="en-US";u.rate=0.88;u.pitch=1.0;
+  window.speechSynthesis.speak(u);
+  _ttsReady=true;
+  const bar=document.getElementById("unlock-bar");
+  bar.style.background="#0a2a0a";bar.style.borderColor="#81c784";
+  document.getElementById("unlock-msg").textContent="✅ Voice enabled!";
+  document.getElementById("unlock-btn").style.display="none";
+  setTimeout(()=>{bar.style.display="none";},1500);
+}
+
+// Show unlock bar on iOS
+(function(){
+  const isIOS=/iPad|iPhone|iPod/.test(navigator.userAgent)||
+    (navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);
+  if(isIOS)document.getElementById("unlock-bar").style.display="block";
+})();
 
 /* ═══════════ DATA ═══════════ */
 const EV=[

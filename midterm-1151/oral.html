@@ -92,24 +92,53 @@ body{
     Please open this file in Safari (iOS) or Chrome — not inside another app.<br>
     iOS: tap ··· then <em>Open in Safari</em>&nbsp;&nbsp;|&nbsp;&nbsp;Android / PC: open in Chrome
   </div>
+  <!-- iOS MUST have a dedicated tap to unlock audio -->
+  <div id="unlock-bar" style="background:#1a0a2a;border:2px solid #fbbf24;border-radius:12px;padding:16px;margin-bottom:20px;text-align:center;display:none">
+    <div style="color:#fbbf24;font-weight:800;font-size:1rem;margin-bottom:10px">🔇 Tap to enable voice</div>
+    <button id="unlock-btn" style="background:#fbbf24;color:#1a0a2a;border:none;border-radius:22px;padding:12px 32px;font-size:1rem;font-weight:800;font-family:inherit;cursor:pointer;min-height:48px">
+      🔊 Enable Voice
+    </button>
+    <div style="color:#9fa8da;font-size:.8rem;margin-top:8px">iOS Safari requires one tap to activate voice</div>
+  </div>
   <div id="cards"></div>
 </div>
 
 <script>
 /* ── TTS setup ── */
-// iOS Safari: speak() must be called synchronously inside a click handler.
-// Poll for voices since voiceschanged is unreliable on iOS.
 let _voices=[];
+let _iosUnlocked=false;
 
 function _pollVoices(){
   const v=window.speechSynthesis.getVoices();
-  if(v.length){_voices=v;return;}
-  setTimeout(_pollVoices,200);
+  if(v.length){_voices=v;}
+  else{setTimeout(_pollVoices,300);}
 }
-window.speechSynthesis.addEventListener("voiceschanged",()=>{
-  _voices=window.speechSynthesis.getVoices();
-});
+window.speechSynthesis.addEventListener("voiceschanged",()=>{_voices=window.speechSynthesis.getVoices();});
 _pollVoices();
+
+// Detect iOS — show a dedicated unlock button
+const _isIOS=/iPad|iPhone|iPod/.test(navigator.userAgent)||
+  (navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);
+if(_isIOS){
+  document.getElementById("unlock-bar").style.display="block";
+}
+
+document.getElementById("unlock-btn").addEventListener("click",function(){
+  // This IS the synchronous user-gesture that iOS needs
+  window.speechSynthesis.cancel();
+  _voices=window.speechSynthesis.getVoices();
+  const u=new SpeechSynthesisUtterance("Voice enabled");
+  const v=getBestVoice();if(v)u.voice=v;
+  u.lang="en-US";u.rate=0.88;u.pitch=1.0;
+  window.speechSynthesis.speak(u);
+  _iosUnlocked=true;
+  // hide the bar after unlock
+  document.getElementById("unlock-bar").style.background="#0a2a0a";
+  document.getElementById("unlock-bar").style.borderColor="#81c784";
+  document.getElementById("unlock-bar").querySelector("div").textContent="✅ Voice enabled!";
+  document.getElementById("unlock-btn").style.display="none";
+  setTimeout(()=>{document.getElementById("unlock-bar").style.display="none";},1500);
+});
 
 function getBestVoice(){
   const voices=_voices.length?_voices:window.speechSynthesis.getVoices();
@@ -123,14 +152,11 @@ function getBestVoice(){
   return null;
 }
 
-// IMPORTANT: call speak() directly from onclick — never in setTimeout/Promise.
-// iOS requires the first speechSynthesis.speak() to be synchronous in a click.
 function speak(text){
   window.speechSynthesis.cancel();
   if(!_voices.length)_voices=window.speechSynthesis.getVoices();
   const u=new SpeechSynthesisUtterance(text);
-  const v=getBestVoice();
-  if(v)u.voice=v;
+  const v=getBestVoice();if(v)u.voice=v;
   u.lang="en-US";u.rate=0.88;u.pitch=1.0;
   window.speechSynthesis.speak(u);
 }
