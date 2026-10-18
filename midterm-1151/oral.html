@@ -191,6 +191,7 @@ function gradeLabel(pct){
   return"📖 Keep practising!";
 }
 
+function esc(s){return s.replace(/\\/g,"\\\\").replace(/'/g,"\\'");}
 function buildCards(){
   const cont=document.getElementById("cards");
   cont.innerHTML=ORAL.map((item,i)=>{
@@ -200,7 +201,7 @@ function buildCards(){
       <div class="q-num">Question ${i+1}</div>
       <div class="q-text">${item.q}</div>
       <div class="btn-row">
-        <button class="btn teal" onclick="speak(${JSON.stringify(item.q)})">🔊 Hear Question</button>
+        <button class="btn teal" onclick='speak("${esc(item.q)}")'>🔊 Hear Question</button>
         <button class="btn red" id="rec-${i}" onclick="oralToggle(${i})">⏺ Record Answer</button>
         <button class="btn green" id="play-${i}" disabled onclick="oralPlay(${i})">▶ Play Back</button>
       </div>
@@ -212,7 +213,7 @@ function buildCards(){
         <div class="model-label">✅ Model Answer</div>
         <div class="model-text">${item.model}</div>
         <div style="margin-top:10px">
-          <button class="btn teal" onclick="speak(${JSON.stringify(item.model)})">🔊 Hear Model Answer</button>
+          <button class="btn teal" onclick='speak("${esc(item.model)}")'>🔊 Hear Model Answer</button>
         </div>
       </div>
       <div class="score-zone" id="score-${i}">

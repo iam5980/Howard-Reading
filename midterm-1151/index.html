@@ -343,6 +343,8 @@ function speak(text){
   window.speechSynthesis.speak(u);
   _ttsReady=true;
 }
+// Escape for use inside onclick='speak("...")'
+function escQ(s){return s.replace(/\\/g,"\\\\").replace(/"/g,"&quot;");}
 
 // iOS unlock — must be called directly from button onclick
 function iosUnlock(){
@@ -831,7 +833,7 @@ function showOral(){
       <div class="oral-badge">★ EXAM MUST-KNOW</div>
       <div class="oral-q">Q${i+1}. ${item.q}</div>
       <div class="oral-btns">
-        <button class="oral-btn speak" onclick="speak(${JSON.stringify(item.q)})">🔊 Hear Question</button>
+        <button class="oral-btn speak" onclick='speak("${escQ(item.q)}")'>🔊 Hear Question</button>
         <button class="oral-btn rec" id="rec-${i}" onclick="oralToggle(${i})">⏺ Record</button>
         <button class="oral-btn play" id="play-${i}" onclick="oralPlay(${i})" disabled>▶ Play Back</button>
       </div>
@@ -843,7 +845,7 @@ function showOral(){
         <div class="oral-model-label">✅ Model Answer:</div>
         <div>${item.model}</div>
         <div style="margin-top:8px">
-          <button class="oral-btn speak" onclick="speak(${JSON.stringify(item.model)})">🔊 Hear Model Answer</button>
+          <button class="oral-btn speak" onclick='speak("${escQ(item.model)}")'>🔊 Hear Model Answer</button>
         </div>
       </div>
     </div>`;
