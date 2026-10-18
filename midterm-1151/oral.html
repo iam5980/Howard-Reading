@@ -96,10 +96,29 @@ body{
 </div>
 
 <script>
+/* ── TTS setup ── */
 let _voices=[];
+let _ttsUnlocked=false;
+
+// Load voice list — fires immediately on Chrome/Android; delayed on iOS
 function _loadVoices(){_voices=speechSynthesis.getVoices();}
 speechSynthesis.addEventListener("voiceschanged",_loadVoices);
 _loadVoices();
+
+// iOS Safari requires speechSynthesis to be called SYNCHRONOUSLY inside a
+// user-gesture handler the very first time, or it stays silent forever.
+// We "unlock" it on the first tap anywhere on the page with a zero-length utterance.
+function _unlockTTS(){
+  if(_ttsUnlocked)return;
+  _ttsUnlocked=true;
+  const u=new SpeechSynthesisUtterance("");
+  window.speechSynthesis.speak(u);
+  // also grab voices now that we have a gesture
+  _voices=speechSynthesis.getVoices();
+}
+document.addEventListener("touchstart",_unlockTTS,{once:true,passive:true});
+document.addEventListener("click",_unlockTTS,{once:true});
+
 function getBestVoice(){
   const voices=_voices.length?_voices:speechSynthesis.getVoices();
   const priority=[
@@ -111,22 +130,16 @@ function getBestVoice(){
   for(const test of priority){const m=voices.find(test);if(m)return m;}
   return null;
 }
+
 function speak(text){
   window.speechSynthesis.cancel();
-  // iOS Safari: voices may not be ready yet — retry once after short delay
-  function _doSpeak(){
-    const u=new SpeechSynthesisUtterance(text);
-    const v=getBestVoice();
-    if(v)u.voice=v;
-    u.lang="en-US";u.rate=0.88;u.pitch=1.0;
-    window.speechSynthesis.speak(u);
-  }
-  if(_voices.length>0){_doSpeak();}
-  else{
-    _voices=speechSynthesis.getVoices();
-    if(_voices.length>0){_doSpeak();}
-    else{setTimeout(()=>{_voices=speechSynthesis.getVoices();_doSpeak();},300);}
-  }
+  // refresh voice list if still empty
+  if(!_voices.length)_voices=speechSynthesis.getVoices();
+  const u=new SpeechSynthesisUtterance(text);
+  const v=getBestVoice();
+  if(v)u.voice=v;
+  u.lang="en-US";u.rate=0.88;u.pitch=1.0;
+  window.speechSynthesis.speak(u);
 }
 
 const ORAL=[
